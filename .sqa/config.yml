@@ -1,0 +1,46 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: main
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    gitlab.com/gmacedonio/disgas:
+      branch: master
+      repo: https://gitlab.com/gmacedonio/disgas.git
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      gitlab.com/gmacedonio/disgas git:
+        commands:
+        - /usr/bin/env sh .sqa/script.clammy-pink-tarsier.sh
+        container: qc.acc_wimpy-blue-frigatebird
+  QC.Doc:
+    repos:
+      gitlab.com/gmacedonio/disgas find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.lovely-platinum-dachshund.sh
+        container: qc.doc_frumpy-purple-bee
+      gitlab.com/gmacedonio/disgas git:
+        commands:
+        - /usr/bin/env sh .sqa/script.craggy-mauve-barracuda.sh
+        container: qc.doc_lousy-amber-clam
+      gitlab.com/gmacedonio/disgas markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.silly-tangerine-beagle.sh
+        container: qc.doc_droopy-vermilion-wolverine
+  QC.Lic:
+    repos:
+      gitlab.com/gmacedonio/disgas licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.flaky-jade-cheetah.sh
+        container: qc.lic_goopy-champagne-iguana
+  QC.Ver:
+    repos:
+      gitlab.com/gmacedonio/disgas get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.flabby-ruby-opossum.sh
+        container: qc.ver_fuzzy-russet-dormouse
+timeout: 5400
